@@ -2,6 +2,7 @@ package com.example.socialmediasysmap.service;
 
 import com.example.socialmediasysmap.model.Post;
 import com.example.socialmediasysmap.model.dto.PostDTO;
+import com.example.socialmediasysmap.model.dto.ResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,13 +12,13 @@ public interface PostService {
     Post createPost(PostDTO postDTO);
     Post getPostById(Long Id);
 
-    void likePost(Long postId);
+    ResponseDTO likePost(Long postId);
 
-    void sharePost(Long postId);
+    ResponseDTO sharePost(Long postId);
 
     List<PostDTO> getAllPostsForUser(Long userId);
 
-    void deletePost(Long postId);
+    ResponseDTO deletePost(Long postId);
 
-    void deleteLike(Long postId);
+    ResponseDTO deleteLike(Long postId);
 }
