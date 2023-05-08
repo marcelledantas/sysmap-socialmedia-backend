@@ -33,8 +33,8 @@ public class CommentController {
     }
 
     @GetMapping("/post/{postId}/comments/{commentId}/")
-    ResponseEntity<ResponseDTO> getCommentFromPost(@PathVariable Long inputPostId, @PathVariable Long commentId){
-        ResponseDTO result = this.commentService.findCommentByUserId(inputPostId, commentId);
+    ResponseEntity<ResponseDTO> getCommentFromPost(@PathVariable Long postId, @PathVariable Long commentId){
+        ResponseDTO result = this.commentService.findCommentByUserId(postId, commentId);
         return ResponseEntity.ok(result);
     }
 
