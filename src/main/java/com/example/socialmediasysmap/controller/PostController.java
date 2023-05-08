@@ -60,4 +60,10 @@ public class PostController {
         ResponseDTO result =  this.postService.deleteLike(postId);
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<Post> getAllCommentsFromPost(@PathVariable Long postId) {
+        Post result = this.postService.getPostById(postId);
+        return ResponseEntity.ok(result);
+    }
 }
