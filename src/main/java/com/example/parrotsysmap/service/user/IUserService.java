@@ -1,5 +1,6 @@
-package com.example.parrotsysmap.service;
+package com.example.parrotsysmap.service.user;
 
+import com.example.parrotsysmap.exception.EmailAlreadyExistsException;
 import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 
 public interface IUserService {
-    User createUser(User user);
+    void createUser(UserDTO user) throws EmailAlreadyExistsException;
 
     void followUser(UUID userId);
 

@@ -1,10 +1,11 @@
 package com.example.parrotsysmap.controller;
 
+import com.example.parrotsysmap.exception.EmailAlreadyExistsException;
 import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
-import com.example.parrotsysmap.service.IUserService;
+import com.example.parrotsysmap.service.user.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,10 +28,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
+    @PostMapping("/create")
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
+        try{
+            userService.createUser(userDTO);
+        }
+        catch(final EmailAlreadyExistsException e)
+        {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{userId}/follow")

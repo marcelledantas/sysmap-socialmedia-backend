@@ -1,4 +1,4 @@
-package com.example.parrotsysmap.service;
+package com.example.parrotsysmap.service.post;
 
 import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.dtos.PostDTO;

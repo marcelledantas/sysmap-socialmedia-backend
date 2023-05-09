@@ -8,14 +8,16 @@ import java.util.List;
 public class UserDTO {
     private String firstName;
     private String secondName;
-    private String photo;
+    private String photoUrl;
+
+    private String email;
 
     private List<String> followers = new java.util.ArrayList<>();
     private List<String> following = new java.util.ArrayList<>();
 
-    public UserDTO(String firstName, String secondName, String photo) {
+    public UserDTO(String firstName, String secondName, String photoUrl) {
         this.firstName = firstName;
         this.secondName = secondName;
-        this.photo = photo;
+        this.photoUrl = photoUrl;
     }
 }
