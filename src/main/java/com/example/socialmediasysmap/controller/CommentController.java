@@ -25,8 +25,8 @@ public class CommentController {
         return commentService;
     }
 
-    @PostMapping("/insert")
-    ResponseEntity<ResponseDTO> createComment(@RequestBody CommentDTO postedComment){
+    @PostMapping("/insert/{postId}")
+    ResponseEntity<ResponseDTO> createComment(@RequestBody CommentDTO postedComment, Long postId){
         CommentDTO inputComment = postedComment.getCommentDTO();
         ResponseDTO result = this.commentService.createComment(inputComment);
         return ResponseEntity.ok(result);
