@@ -1,10 +1,9 @@
 package com.example.socialmediasysmap.controller;
 
 import com.example.socialmediasysmap.model.Post;
-import com.example.socialmediasysmap.model.dto.PostDTO;
-import com.example.socialmediasysmap.model.dto.ResponseDTO;
-import com.example.socialmediasysmap.service.PostService;
-import org.springframework.http.HttpStatus;
+import com.example.socialmediasysmap.dtos.PostDTO;
+import com.example.socialmediasysmap.dtos.ResponseDTO;
+import com.example.socialmediasysmap.service.IPostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,15 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("api/post")
 public class PostController {
 
-    private final PostService postService;
+    private final IPostService postService;
 
-    public PostController(PostService postService) {
+    public PostController(IPostService postService) {
         this.postService = postService;
     }
 
@@ -61,7 +58,7 @@ public class PostController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{postId}")
+    @GetMapping("/{postId}/all")
     public ResponseEntity<Post> getAllCommentsFromPost(@PathVariable Long postId) {
         Post result = this.postService.getPostById(postId);
         return ResponseEntity.ok(result);

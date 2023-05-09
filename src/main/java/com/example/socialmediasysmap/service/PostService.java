@@ -1,26 +1,56 @@
 package com.example.socialmediasysmap.service;
 
 import com.example.socialmediasysmap.model.Post;
-import com.example.socialmediasysmap.model.dto.PostDTO;
-import com.example.socialmediasysmap.model.dto.ResponseDTO;
+import com.example.socialmediasysmap.dtos.PostDTO;
+import com.example.socialmediasysmap.dtos.ResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public interface PostService {
-    Post createPost(PostDTO postDTO);
-    Post getPostById(Long Id);
+public class PostService implements IPostService {
 
-    ResponseDTO likePost(Long postId);
+    @Override
+    public Post createPost(PostDTO postDTO) {
+        return null;
+    }
 
-    ResponseDTO sharePost(Long postId);
+    @Override
+    public Post getPostById(Long Id) {
+        return null;
+    }
 
-    List<PostDTO> getAllPostsForUser(Long userId);
+    @Override
+    public ResponseDTO likePost(Long postId) {
 
-    ResponseDTO deletePost(Long postId);
+        return null;
+    }
 
-    ResponseDTO deleteLike(Long postId);
+    @Override
+    public ResponseDTO sharePost(Long postId) {
 
-    ResponseDTO removeCommentFromPost(Long commentId, Long postId);
+        return null;
+    }
+
+    @Override
+    public List<PostDTO> getAllPostsForUser(Long userId) {
+        return null;
+    }
+
+    @Override
+    public ResponseDTO deletePost(Long postId) {
+
+        return null;
+    }
+
+    @Override
+    public ResponseDTO deleteLike(Long postId) {
+
+        return null;
+    }
+
+    @Override
+    public ResponseDTO removeCommentFromPost(Long commentId, Long postId) {
+        return null;
+    }
 }
