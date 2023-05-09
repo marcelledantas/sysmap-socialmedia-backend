@@ -1,8 +1,6 @@
-package com.example.socialmediasysmap.model;
+package com.example.parrotsysmap.model;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Comment {
     private Long id;

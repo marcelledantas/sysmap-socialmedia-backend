@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap.dtos;
+package com.example.parrotsysmap.dtos;
 
 import java.util.Date;
 

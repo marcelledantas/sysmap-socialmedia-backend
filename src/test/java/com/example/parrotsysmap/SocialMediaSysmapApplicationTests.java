@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap;
+package com.example.parrotsysmap;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

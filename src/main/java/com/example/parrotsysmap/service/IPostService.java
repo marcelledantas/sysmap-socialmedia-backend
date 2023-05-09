@@ -1,10 +1,8 @@
-package com.example.socialmediasysmap.service;
+package com.example.parrotsysmap.service;
 
-import com.example.socialmediasysmap.model.Post;
-import com.example.socialmediasysmap.dtos.PostDTO;
-import com.example.socialmediasysmap.dtos.ResponseDTO;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.parrotsysmap.model.Post;
+import com.example.parrotsysmap.dtos.PostDTO;
+import com.example.parrotsysmap.dtos.ResponseDTO;
 
 import java.util.List;
 

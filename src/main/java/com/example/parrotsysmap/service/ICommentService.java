@@ -1,7 +1,7 @@
-package com.example.socialmediasysmap.service;
+package com.example.parrotsysmap.service;
 
-import com.example.socialmediasysmap.dtos.CommentDTO;
-import com.example.socialmediasysmap.dtos.ResponseDTO;
+import com.example.parrotsysmap.dtos.CommentDTO;
+import com.example.parrotsysmap.dtos.ResponseDTO;
 
 public interface ICommentService {
     ResponseDTO createComment(CommentDTO inputComment, Long postId);

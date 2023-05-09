@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap.model;
+package com.example.parrotsysmap.model;
 
 public class Login {
     private String email;

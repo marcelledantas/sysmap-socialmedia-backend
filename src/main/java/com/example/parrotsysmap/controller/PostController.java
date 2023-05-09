@@ -1,9 +1,9 @@
-package com.example.socialmediasysmap.controller;
+package com.example.parrotsysmap.controller;
 
-import com.example.socialmediasysmap.model.Post;
-import com.example.socialmediasysmap.dtos.PostDTO;
-import com.example.socialmediasysmap.dtos.ResponseDTO;
-import com.example.socialmediasysmap.service.IPostService;
+import com.example.parrotsysmap.model.Post;
+import com.example.parrotsysmap.dtos.PostDTO;
+import com.example.parrotsysmap.dtos.ResponseDTO;
+import com.example.parrotsysmap.service.IPostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

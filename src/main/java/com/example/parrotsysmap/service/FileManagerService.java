@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap.service;
+package com.example.parrotsysmap.service;
 
 import org.springframework.stereotype.Service;
 

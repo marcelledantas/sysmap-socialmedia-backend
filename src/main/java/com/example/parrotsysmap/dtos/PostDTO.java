@@ -1,6 +1,6 @@
-package com.example.socialmediasysmap.dtos;
+package com.example.parrotsysmap.dtos;
 
-import com.example.socialmediasysmap.model.Comment;
+import com.example.parrotsysmap.model.Comment;
 
 import java.util.Date;
 import java.util.List;

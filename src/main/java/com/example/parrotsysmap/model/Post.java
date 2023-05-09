@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap.model;
+package com.example.parrotsysmap.model;
 import  java.util.Date;
 import java.util.List;
 
