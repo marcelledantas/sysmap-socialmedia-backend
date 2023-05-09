@@ -1,10 +1,12 @@
 package com.example.parrotsysmap.dtos;
 
 import com.example.parrotsysmap.model.Comment;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
 public class PostDTO {
     private String userFullName;
     private Date createdAt;
