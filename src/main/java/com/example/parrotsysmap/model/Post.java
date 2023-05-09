@@ -1,9 +1,12 @@
 package com.example.parrotsysmap.model;
+import lombok.Data;
+
 import  java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+@Data
 public class Post {
     private UUID id;
     private UUID userId;

@@ -1,14 +1,24 @@
 package com.example.parrotsysmap.model;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Data
+@Document
 public class User {
+    @Id
     private UUID id;
     private String firstName;
     private String secondName;
     private String login;
     private String password;
     private String photoUrl;
+    private ZonedDateTime created;
 
     private List<String> followers = new java.util.ArrayList<>();
     private List<String> following = new java.util.ArrayList<>();
