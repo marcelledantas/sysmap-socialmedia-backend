@@ -1,4 +1,4 @@
 package com.example.socialmediasysmap.service;
 
-public class FileManagerServiceImpl {
+public interface IFileManagerService {
 }

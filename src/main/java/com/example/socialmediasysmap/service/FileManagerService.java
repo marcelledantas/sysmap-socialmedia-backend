@@ -1,4 +1,7 @@
 package com.example.socialmediasysmap.service;
 
-public interface FileManagerService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class FileManagerService {
 }
