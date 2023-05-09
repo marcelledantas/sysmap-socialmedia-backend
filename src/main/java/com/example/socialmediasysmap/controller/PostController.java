@@ -66,4 +66,12 @@ public class PostController {
         Post result = this.postService.getPostById(postId);
         return ResponseEntity.ok(result);
     }
+
+
+    //remove comment
+    @PostMapping("/comment/{commentId}/{postId}")
+    ResponseEntity<ResponseDTO> deleteComment(@PathVariable Long commentId, @PathVariable Long postId){
+        ResponseDTO result = this.postService.removeCommentFromPost(commentId, postId);
+        return ResponseEntity.ok(result);
+    }
 }

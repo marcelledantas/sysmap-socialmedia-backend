@@ -1,5 +1,6 @@
 package com.example.socialmediasysmap.model;
 import  java.util.Date;
+import java.util.List;
 
 public class Post {
     private String id;
@@ -7,10 +8,14 @@ public class Post {
     private String userFullName;
     private Date createdAt;
 
+    private List<Comment> comments;
+
+    private int likes;
 
     public String getId() {
         return id;
     }
+
 
     public void setId(String id) {
         this.id = id;
@@ -38,5 +43,21 @@ public class Post {
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

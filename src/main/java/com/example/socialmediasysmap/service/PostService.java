@@ -21,4 +21,6 @@ public interface PostService {
     ResponseDTO deletePost(Long postId);
 
     ResponseDTO deleteLike(Long postId);
+
+    ResponseDTO removeCommentFromPost(Long commentId, Long postId);
 }

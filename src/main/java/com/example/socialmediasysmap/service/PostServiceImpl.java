@@ -46,4 +46,9 @@ public class PostServiceImpl implements PostService{
 
         return null;
     }
+
+    @Override
+    public ResponseDTO removeCommentFromPost(Long commentId, Long postId) {
+        return null;
+    }
 }
