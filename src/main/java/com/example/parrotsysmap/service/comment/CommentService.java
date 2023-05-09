@@ -1,4 +1,4 @@
-package com.example.parrotsysmap.service;
+package com.example.parrotsysmap.service.comment;
 
 import com.example.parrotsysmap.dtos.CommentDTO;
 import com.example.parrotsysmap.dtos.ResponseDTO;
