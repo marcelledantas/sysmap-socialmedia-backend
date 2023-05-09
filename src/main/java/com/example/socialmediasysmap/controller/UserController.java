@@ -1,6 +1,10 @@
 package com.example.socialmediasysmap.controller;
 
+import com.example.socialmediasysmap.model.Login;
 import com.example.socialmediasysmap.model.Post;
+import com.example.socialmediasysmap.model.User;
+import com.example.socialmediasysmap.model.dto.ResponseDTO;
+import com.example.socialmediasysmap.model.dto.UserDTO;
 import com.example.socialmediasysmap.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
@@ -43,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/posts")
-    public ResponseEntity<List<Post>> getAllPostsForUser(@PathVariable Long userId) {
+    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable Long userId) {
         List<Post> posts = userService.getAllPostsForUser(userId);
         return ResponseEntity.ok(posts);
     }
@@ -51,40 +56,64 @@ public class UserController {
     @GetMapping("/{userId}/followers")
     public ResponseEntity<List<User>> getFollowersForUser(@PathVariable Long userId) {
         List<User> users = this.userService.getFollowersFromUser(userId);
-        return ResponseEntity.ok(posts);
+        return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/users/profile")
-    public ResponseEntity<ResponseObjectService> findById(@RequestBody IdObjectEntity inputId) {
-        return new ResponseEntity<ResponseObjectService>(userService.findById(inputId.getId()), HttpStatus.OK);
+    @GetMapping("/{userId}/followers")
+    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable Long userId) {
+        List<User> users = this.userService.getFollowersFromUser(userId);
+        return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/users/save")
-    public ResponseEntity<ResponseObjectService> saveUser(@RequestBody UserEntity inputUser) {
-        return new ResponseEntity<ResponseObjectService>(userService.saveUser(inputUser), HttpStatus.OK);
+    @GetMapping("/profile")
+    public ResponseEntity<UserDTO> findById(@RequestBody Long userId) {
+        UserDTO user = this.userService.findById(userId);
+        return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/users/signin")
-    public ResponseEntity<ResponseObjectService> userSignIn(@RequestBody UserSignInEntity inputUser) {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(inputUser.getEmail(), inputUser.getPassword()));
-            String token = jwtUtil.generateToken(inputUser.getEmail());
-
-            Optional<UserEntity> optUser = userRepo.findByEmail(inputUser.getEmail());
-            UserEntity user = optUser.get();
-            user.setPassword("");
-            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("success", "authenticated", new AuthorizedEntity(user, token)), HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("fail", "unauthenticated", null), HttpStatus.OK);
-        }
+    @PostMapping("/save")
+    public ResponseEntity<ResponseDTO> saveUser(@RequestBody Long userId) {
+        ResponseDTO result = this.userService.saveUser(userId);
+        return ResponseEntity.ok(result);
     }
 
 
-    @PutMapping("/users/update")
-    public ResponseEntity<ResponseObjectService> update(@RequestBody UserEntity inputUser) {
-        return new ResponseEntity<ResponseObjectService>(userService.update(inputUser), HttpStatus.OK);
+    @PutMapping("/update")
+    public ResponseEntity<ResponseDTO> update(@RequestBody Long userId) {
+        ResponseDTO result = this.userService.updateUser(userId);
+        return ResponseEntity.ok(result);
     }
 
-    //findAllUsers
-    //
+    @GetMapping("/profile/all")
+    public ResponseEntity<List<UserDTO>> findAllUsers() {
+        List<UserDTO> user = this.userService.findAllUsers();
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/photo")
+    public ResponseEntity<List<UserDTO>> uploadProfilePhoto(MultipartFile photo) {
+        List<UserDTO> user = this.userService.uploadProfilePhoto();
+        return ResponseEntity.ok(user);
+    }
+
+//    @PostMapping("/delete/{postId}")
+//    public ResponseEntity deleteUser(@PathVariable Long postId) {
+//        this.use
+//    }
+
+//    @PostMapping("/users/signin")
+//    public ResponseEntity<ResponseDTO> userSignIn(@RequestBody Login inputUser) {
+//        try {
+//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(inputUser.getEmail(), inputUser.getPassword()));
+//            String token = jwtUtil.generateToken(inputUser.getEmail());
+//
+//            Optional<UserEntity> optUser = userRepo.findByEmail(inputUser.getEmail());
+//            UserEntity user = optUser.get();
+//            user.setPassword("");
+//            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("success", "authenticated", new AuthorizedEntity(user, token)), HttpStatus.OK);
+//        } catch (Exception ex) {
+//            return new ResponseEntity<ResponseObjectService>(new ResponseObjectService("fail", "unauthenticated", null), HttpStatus.OK);
+//        }
+//    }
+
 }
