@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class Post {
     private UUID id;
-    private String userId;
+    private UUID userId;
     private String userFullName;
     private Date createdAt;
 
@@ -14,6 +14,14 @@ public class Post {
 
     private int likes;
 
+    public Post(UUID userId, String userFullName, Date createdAt, List<Comment> comments, int likes) {
+        this.userId = userId;
+        this.userFullName = userFullName;
+        this.createdAt = createdAt;
+        this.comments = comments;
+        this.likes = likes;
+        this.setId();
+    }
 
     public UUID getId() {
         return id;
@@ -23,11 +31,11 @@ public class Post {
         this.id = UUID.randomUUID();
     }
 
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

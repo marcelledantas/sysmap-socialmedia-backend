@@ -19,6 +19,7 @@ public class User {
         this.login = login;
         this.password = password;
         this.photoUrl = photoUrl;
+        this.setId();
     }
 
     public UUID getId() {
