@@ -1,14 +1,24 @@
 package com.example.socialmediasysmap.service;
 
-import com.example.socialmediasysmap.model.dto.CommentDTO;
-import com.example.socialmediasysmap.model.dto.ResponseDTO;
+import com.example.socialmediasysmap.dtos.CommentDTO;
+import com.example.socialmediasysmap.dtos.ResponseDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface CommentService {
-    ResponseDTO createComment(CommentDTO inputComment);
+public class CommentService implements ICommentService {
 
-    ResponseDTO getComment(Long inputPostId);
+    @Override
+    public ResponseDTO createComment(CommentDTO inputComment, Long postId) {
+        return null;
+    }
 
-    ResponseDTO findCommentByUserId(Long inputPostId, Long commentId);
+    @Override
+    public ResponseDTO getComment(Long inputPostId) {
+        return null;
+    }
+
+    @Override
+    public ResponseDTO findCommentByUserId(Long inputPostId, Long commentId) {
+        return null;
+    }
 }
