@@ -1,9 +1,11 @@
 package com.example.parrotsysmap.model;
 import  java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 public class Post {
-    private String id;
+    private UUID id;
     private String userId;
     private String userFullName;
     private Date createdAt;
@@ -12,13 +14,13 @@ public class Post {
 
     private int likes;
 
-    public String getId() {
+
+    public UUID getId() {
         return id;
     }
 
-
-    public void setId(String id) {
-        this.id = id;
+    public void setId() {
+        this.id = UUID.randomUUID();
     }
 
     public String getUserId() {

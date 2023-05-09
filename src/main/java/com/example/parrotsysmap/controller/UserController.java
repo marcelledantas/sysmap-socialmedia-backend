@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
@@ -34,44 +35,44 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow")
-    public ResponseEntity<Void> followUser(@PathVariable Long userId) {
+    public ResponseEntity<Void> followUser(@PathVariable UUID userId) {
         userService.followUser(userId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{userId}/unfollow")
-    public ResponseEntity<Void> unfollowUser(@PathVariable Long userId) {
+    public ResponseEntity<Void> unfollowUser(@PathVariable UUID userId) {
         userService.unfollowUser(userId);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{userId}/posts")
-    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable Long userId) {
+    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable UUID userId) {
         List<Post> posts = userService.getAllPostsForUser(userId);
         return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable Long userId) {
+    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable UUID userId) {
         List<User> users = this.userService.getFollowersFromUser(userId);
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<UserDTO> findById(@RequestBody Long userId) {
+    public ResponseEntity<UserDTO> findById(@RequestBody UUID userId) {
         UserDTO user = this.userService.findById(userId);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseDTO> saveUser(@RequestBody Long userId) {
+    public ResponseEntity<ResponseDTO> saveUser(@RequestBody UUID userId) {
         ResponseDTO result = this.userService.saveUser(userId);
         return ResponseEntity.ok(result);
     }
 
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> update(@RequestBody Long userId) {
+    public ResponseEntity<ResponseDTO> update(@RequestBody UUID userId) {
         ResponseDTO result = this.userService.updateUser(userId);
         return ResponseEntity.ok(result);
     }

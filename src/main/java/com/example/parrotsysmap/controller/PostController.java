@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/post")
 public class PostController {
@@ -29,45 +31,38 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResponseEntity<Post> getPost(@PathVariable Long postId) {
+    public ResponseEntity<Post> getPost(@PathVariable UUID postId) {
         Post result = this.postService.getPostById(postId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/{postId}/like")
-    public ResponseEntity<ResponseDTO> likePost(@PathVariable Long postId) {
+    public ResponseEntity<ResponseDTO> likePost(@PathVariable UUID postId) {
         ResponseDTO result = this.postService.likePost(postId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/{postId}/share")
-    public ResponseEntity<ResponseDTO> sharePost(@PathVariable Long postId) {
+    public ResponseEntity<ResponseDTO> sharePost(@PathVariable UUID postId) {
         ResponseDTO result = this.postService.sharePost(postId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/{postId}/delete/post")
-    public ResponseEntity<ResponseDTO> deletePost(@PathVariable Long postId){
+    public ResponseEntity<ResponseDTO> deletePost(@PathVariable UUID postId){
         ResponseDTO result = this.postService.deletePost(postId);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("/{postId}/delete/like")
-    public ResponseEntity<ResponseDTO> deleteLikeFromPost(@PathVariable Long postId){
+    public ResponseEntity<ResponseDTO> deleteLikeFromPost(@PathVariable UUID postId){
         ResponseDTO result =  this.postService.deleteLike(postId);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{postId}/all")
-    public ResponseEntity<Post> getAllCommentsFromPost(@PathVariable Long postId) {
-        Post result = this.postService.getPostById(postId);
-        return ResponseEntity.ok(result);
-    }
-
-
     //remove comment
     @PostMapping("/comment/{commentId}/{postId}")
-    ResponseEntity<ResponseDTO> deleteComment(@PathVariable Long commentId, @PathVariable Long postId){
+    ResponseEntity<ResponseDTO> deleteComment(@PathVariable UUID commentId, @PathVariable UUID postId){
         ResponseDTO result = this.postService.removeCommentFromPost(commentId, postId);
         return ResponseEntity.ok(result);
     }

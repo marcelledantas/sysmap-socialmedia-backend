@@ -1,23 +1,32 @@
 package com.example.parrotsysmap.model;
 import java.util.List;
+import java.util.UUID;
 
 public class User {
-    private Long id;
+    private UUID id;
     private String firstName;
     private String secondName;
     private String login;
     private String password;
-    private String photo;
+    private String photoUrl;
 
     private List<String> followers = new java.util.ArrayList<>();
     private List<String> following = new java.util.ArrayList<>();
 
-    public Long getId() {
+    public User(String firstName, String secondName, String login, String password, String photoUrl) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.login = login;
+        this.password = password;
+        this.photoUrl = photoUrl;
+    }
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    protected void setId() {
+        this.id = UUID.randomUUID();
     }
 
     public String getFirstName() {
@@ -52,12 +61,12 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public List<String> getFollowers() {

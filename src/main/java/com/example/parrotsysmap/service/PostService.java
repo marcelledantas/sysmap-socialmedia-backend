@@ -6,6 +6,7 @@ import com.example.parrotsysmap.dtos.ResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostService implements IPostService {
@@ -16,18 +17,18 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Post getPostById(Long Id) {
+    public Post getPostById(UUID Id) {
         return null;
     }
 
     @Override
-    public ResponseDTO likePost(Long postId) {
+    public ResponseDTO likePost(UUID postId) {
 
         return null;
     }
 
     @Override
-    public ResponseDTO sharePost(Long postId) {
+    public ResponseDTO sharePost(UUID postId) {
 
         return null;
     }
@@ -38,19 +39,19 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public ResponseDTO deletePost(Long postId) {
+    public ResponseDTO deletePost(UUID postId) {
 
         return null;
     }
 
     @Override
-    public ResponseDTO deleteLike(Long postId) {
+    public ResponseDTO deleteLike(UUID postId) {
 
         return null;
     }
 
     @Override
-    public ResponseDTO removeCommentFromPost(Long commentId, Long postId) {
+    public ResponseDTO removeCommentFromPost(UUID commentId, UUID postId) {
         return null;
     }
 }

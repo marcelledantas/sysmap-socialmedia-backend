@@ -1,21 +1,22 @@
 package com.example.parrotsysmap.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class Comment {
-    private Long id;
+    private UUID id;
     private Long userId;
     private String userFullName;
     private String content;
     private Date createdAt;
     private int likes;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId() {
+        this.id = UUID.randomUUID();
     }
 
     public Long getUserId() {

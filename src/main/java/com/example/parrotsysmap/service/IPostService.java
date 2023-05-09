@@ -5,20 +5,21 @@ import com.example.parrotsysmap.dtos.PostDTO;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface IPostService {
     Post createPost(PostDTO postDTO);
-    Post getPostById(Long Id);
+    Post getPostById(UUID Id);
 
-    ResponseDTO likePost(Long postId);
+    ResponseDTO likePost(UUID postId);
 
-    ResponseDTO sharePost(Long postId);
+    ResponseDTO sharePost(UUID postId);
 
     List<PostDTO> getAllPostsForUser(Long userId);
 
-    ResponseDTO deletePost(Long postId);
+    ResponseDTO deletePost(UUID postId);
 
-    ResponseDTO deleteLike(Long postId);
+    ResponseDTO deleteLike(UUID postId);
 
-    ResponseDTO removeCommentFromPost(Long commentId, Long postId);
+    ResponseDTO removeCommentFromPost(UUID commentId, UUID postId);
 }

@@ -7,6 +7,7 @@ import com.example.parrotsysmap.dtos.UserDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService implements IUserService {
@@ -17,37 +18,37 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void followUser(Long userId) {
+    public void followUser(UUID userId) {
 
     }
 
     @Override
-    public void unfollowUser(Long userId) {
+    public void unfollowUser(UUID userId) {
 
     }
 
     @Override
-    public List<Post> getAllPostsForUser(Long userId) {
+    public List<Post> getAllPostsForUser(UUID userId) {
         return null;
     }
 
     @Override
-    public List<User> getFollowersFromUser(Long userId) {
+    public List<User> getFollowersFromUser(UUID userId) {
         return null;
     }
 
     @Override
-    public UserDTO findById(Long userId) {
+    public UserDTO findById(UUID userId) {
         return null;
     }
 
     @Override
-    public ResponseDTO saveUser(Long userId) {
+    public ResponseDTO saveUser(UUID userId) {
         return null;
     }
 
     @Override
-    public ResponseDTO updateUser(Long userId) {
+    public ResponseDTO updateUser(UUID userId) {
         return null;
     }
 

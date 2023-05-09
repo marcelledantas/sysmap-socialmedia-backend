@@ -2,13 +2,16 @@ package com.example.parrotsysmap.service;
 
 import com.example.parrotsysmap.dtos.CommentDTO;
 import com.example.parrotsysmap.dtos.ResponseDTO;
+import com.example.parrotsysmap.model.Post;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class CommentService implements ICommentService {
 
     @Override
-    public ResponseDTO createComment(CommentDTO inputComment, Long postId) {
+    public ResponseDTO createComment(CommentDTO inputComment, UUID postId) {
         return null;
     }
 
@@ -18,7 +21,12 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public ResponseDTO findCommentByUserId(Long inputPostId, Long commentId) {
+    public ResponseDTO findCommentByUserId(UUID inputPostId, UUID commentId) {
+        return null;
+    }
+
+    @Override
+    public Post getAllCommentsByPostId(UUID postId) {
         return null;
     }
 }
