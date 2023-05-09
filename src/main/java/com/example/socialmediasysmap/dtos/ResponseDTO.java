@@ -1,4 +1,4 @@
-package com.example.socialmediasysmap.model.dto;
+package com.example.socialmediasysmap.dtos;
 
 public class ResponseDTO {
     private String status;

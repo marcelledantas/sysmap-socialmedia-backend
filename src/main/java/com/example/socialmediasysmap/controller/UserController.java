@@ -1,12 +1,10 @@
 package com.example.socialmediasysmap.controller;
 
-import com.example.socialmediasysmap.model.Login;
 import com.example.socialmediasysmap.model.Post;
 import com.example.socialmediasysmap.model.User;
-import com.example.socialmediasysmap.model.dto.ResponseDTO;
-import com.example.socialmediasysmap.model.dto.UserDTO;
-import com.example.socialmediasysmap.service.UserService;
-import org.springframework.http.HttpStatus;
+import com.example.socialmediasysmap.dtos.ResponseDTO;
+import com.example.socialmediasysmap.dtos.UserDTO;
+import com.example.socialmediasysmap.service.IUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,9 +21,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private final UserService userService;
+    private final IUserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
@@ -51,12 +49,6 @@ public class UserController {
     public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable Long userId) {
         List<Post> posts = userService.getAllPostsForUser(userId);
         return ResponseEntity.ok(posts);
-    }
-
-    @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getFollowersForUser(@PathVariable Long userId) {
-        List<User> users = this.userService.getFollowersFromUser(userId);
-        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{userId}/followers")
