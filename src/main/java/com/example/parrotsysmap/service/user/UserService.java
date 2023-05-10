@@ -6,7 +6,6 @@ import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
 import com.example.parrotsysmap.repository.UserRepository;
-import jakarta.servlet.http.HttpServletResponse;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,13 +104,48 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void unfollowUser(UUID userId) {
+    public String unfollowUser(ObjectId userIdFollower, ObjectId userIdUnfollowed) {
 
-    }
+        HashMap<String, String> responseMap = new HashMap<>();
 
-    @Override
-    public List<Post> getAllPostsForUser(UUID userId) {
-        return null;
+        Optional<User> optUserFollower = this.userRepository.findById(userIdFollower);
+        Optional<User> optUserUnfollowed = this.userRepository.findById(userIdUnfollowed);
+
+        if(optUserFollower.isEmpty() || optUserUnfollowed.isEmpty()){
+            responseMap.put("mensagem", "usuário não existe");
+            return responseMap.toString();
+        }
+
+        User user = optUserFollower.get();
+        List<ObjectId> userFollowingList = user.getFollowing();
+        if(userFollowingList == null){
+            userFollowingList = new ArrayList<>();
+        }
+
+        boolean isFollowed = false;
+
+        for(ObjectId id : userFollowingList){
+            if(id.equals(userIdUnfollowed)){
+                isFollowed = true;
+            }
+        }
+
+        if(isFollowed){
+            userFollowingList.remove(userIdUnfollowed);
+            user.setFollowing(userFollowingList);
+            this.userRepository.save(user);
+            responseMap.put("status", "sucesso");
+            responseMap.put("Usuário", user.getFullName());
+            responseMap.put("Lista de usuários que está seguindo", user.getFollowing().toString());
+
+            return responseMap.toString();
+        }
+        else{
+            User userFollowed = optUserUnfollowed.get();
+            responseMap.put("mensagem", String.format("Falha a dar unfollow, usuário %s não segue %s", user.getFullName(), userFollowed.getFullName()));
+            return responseMap.toString();
+        }
+
     }
 
     @Override
@@ -141,6 +175,11 @@ public class UserService implements IUserService {
 
     @Override
     public List<UserDTO> uploadProfilePhoto() {
+        return null;
+    }
+
+    @Override
+    public List<Post> getAllPostsForUser(UUID userId) {
         return null;
     }
 

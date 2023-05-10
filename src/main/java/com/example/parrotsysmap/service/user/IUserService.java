@@ -5,7 +5,6 @@ import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
-import jakarta.servlet.http.HttpServletResponse;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -17,8 +16,7 @@ public interface IUserService {
 
     String followUser(ObjectId userId, ObjectId userIdFollowed);
 
-    void unfollowUser(UUID userId);
-
+    public String unfollowUser(ObjectId userIdFollower, ObjectId userIdUnFollowed);
     List<Post> getAllPostsForUser(UUID userId);
 
     List<User> getFollowersFromUser(UUID userId);
