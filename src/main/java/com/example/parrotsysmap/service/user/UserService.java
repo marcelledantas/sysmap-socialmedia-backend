@@ -1,6 +1,7 @@
 package com.example.parrotsysmap.service.user;
 
 import com.example.parrotsysmap.exception.EmailAlreadyExistsException;
+import com.example.parrotsysmap.exception.UserNotFoundException;
 import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
@@ -149,12 +150,22 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getFollowersFromUser(UUID userId) {
-        return null;
+    public String findById(ObjectId userId) throws UserNotFoundException {
+        HashMap<String, UserDTO> responseMap = new HashMap<>();
+
+        Optional<User> userFind = this.userRepository.findById(userId);
+        if(userFind.isEmpty()){
+            throw new UserNotFoundException("Usuário não encontrado");
+        } else{
+            User user = userFind.get();
+            UserDTO userDTO = new UserDTO(user.getFullName(), user.getPhotoUrl(), user.getEmail());
+            responseMap.put("usuário", userDTO);
+            return responseMap.toString();
+        }
     }
 
     @Override
-    public UserDTO findById(UUID userId) {
+    public List<User> getFollowersFromUser(UUID userId) {
         return null;
     }
 

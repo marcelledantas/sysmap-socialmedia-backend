@@ -1,6 +1,7 @@
 package com.example.parrotsysmap.service.user;
 
 import com.example.parrotsysmap.exception.EmailAlreadyExistsException;
+import com.example.parrotsysmap.exception.UserNotFoundException;
 import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
@@ -21,7 +22,7 @@ public interface IUserService {
 
     List<User> getFollowersFromUser(UUID userId);
 
-    UserDTO findById(UUID userId);
+    String findById(ObjectId userId) throws UserNotFoundException;
 
     ResponseDTO saveUser(UUID userId);
 
