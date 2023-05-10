@@ -6,6 +6,8 @@ import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
 import com.example.parrotsysmap.service.user.IUserService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,37 +34,25 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
         try{
-            userService.createUser(userDTO);
+            String result = this.userService.createUser(userDTO);
+            return ResponseEntity.ok().body(result);
         }
         catch(final EmailAlreadyExistsException e)
         {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/{userId}/follow")
-    public ResponseEntity<Void> followUser(@PathVariable UUID userId) {
-        userService.followUser(userId);
-        return ResponseEntity.ok().build();
+    @PostMapping("/follow/{userIdFollower}/{userIdFollowed}")
+    public ResponseEntity<?> followUser(@PathVariable("userIdFollower") ObjectId userId, @PathVariable("userIdFollowed") ObjectId userIdFollowed) {
+        String result = this.userService.followUser(userId, userIdFollowed);
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping("/{userId}/unfollow")
-    public ResponseEntity<Void> unfollowUser(@PathVariable UUID userId) {
+    public ResponseEntity<?> unfollowUser(@PathVariable UUID userId) {
         userService.unfollowUser(userId);
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/{userId}/posts")
-    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable UUID userId) {
-        List<Post> posts = userService.getAllPostsForUser(userId);
-        return ResponseEntity.ok(posts);
-    }
-
-    @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable UUID userId) {
-        List<User> users = this.userService.getFollowersFromUser(userId);
-        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/profile")
@@ -70,14 +61,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<ResponseDTO> saveUser(@RequestBody UUID userId) {
-        ResponseDTO result = this.userService.saveUser(userId);
-        return ResponseEntity.ok(result);
-    }
-
-
-    @PutMapping("/update")
+     @PutMapping("/update")
     public ResponseEntity<ResponseDTO> update(@RequestBody UUID userId) {
         ResponseDTO result = this.userService.updateUser(userId);
         return ResponseEntity.ok(result);
@@ -93,6 +77,18 @@ public class UserController {
     public ResponseEntity<List<UserDTO>> uploadProfilePhoto(MultipartFile photo) {
         List<UserDTO> user = this.userService.uploadProfilePhoto();
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable UUID userId) {
+        List<Post> posts = userService.getAllPostsForUser(userId);
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/{userId}/followers")
+    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable UUID userId) {
+        List<User> users = this.userService.getFollowersFromUser(userId);
+        return ResponseEntity.ok(users);
     }
 
 //    @PostMapping("/delete/{postId}")

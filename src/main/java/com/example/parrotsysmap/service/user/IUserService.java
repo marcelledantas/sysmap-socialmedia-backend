@@ -5,15 +5,17 @@ import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
 import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
+import jakarta.servlet.http.HttpServletResponse;
+import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.UUID;
 
 
 public interface IUserService {
-    void createUser(UserDTO user) throws EmailAlreadyExistsException;
+    String createUser(UserDTO user) throws EmailAlreadyExistsException;
 
-    void followUser(UUID userId);
+    String followUser(ObjectId userId, ObjectId userIdFollowed);
 
     void unfollowUser(UUID userId);
 
@@ -30,4 +32,5 @@ public interface IUserService {
     List<UserDTO> findAllUsers();
 
     List<UserDTO> uploadProfilePhoto();
+
 }
