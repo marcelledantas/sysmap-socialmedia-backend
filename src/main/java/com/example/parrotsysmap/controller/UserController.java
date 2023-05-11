@@ -61,10 +61,16 @@ public class UserController {
     }
 
      @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> update(@RequestBody UUID userId) {
-        ResponseDTO result = this.userService.updateUser(userId);
+    public ResponseEntity<?> updateUserName(@RequestBody UserDTO userRequest) throws UserNotFoundException {
+        String result = this.userService.updateUserName(userRequest);
         return ResponseEntity.ok(result);
     }
+
+//    @GetMapping("/{userId}/posts")
+//    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable ObjectId userId) {
+//        List<Post> posts = userService.getAllPostsForUser(userId);
+//        return ResponseEntity.ok(posts);
+//    }
 
     @GetMapping("/profile/all")
     public ResponseEntity<List<UserDTO>> findAllUsers() {
@@ -78,16 +84,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/{userId}/posts")
-    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable UUID userId) {
-        List<Post> posts = userService.getAllPostsForUser(userId);
-        return ResponseEntity.ok(posts);
-    }
-
     @GetMapping("/{userId}/followers")
-    public ResponseEntity<List<User>> getPostFromFollowers(@PathVariable UUID userId) {
-        List<User> users = this.userService.getFollowersFromUser(userId);
-        return ResponseEntity.ok(users);
+    public ResponseEntity<?> getPostFromFollowers(@PathVariable ObjectId userId) throws UserNotFoundException {
+        String result  = this.userService.getFollowersFromUser(userId);
+        return ResponseEntity.ok(result);
     }
 
 //    @PostMapping("/delete/{postId}")

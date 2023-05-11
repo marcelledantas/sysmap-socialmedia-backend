@@ -18,15 +18,11 @@ public interface IUserService {
     String followUser(ObjectId userId, ObjectId userIdFollowed);
 
     public String unfollowUser(ObjectId userIdFollower, ObjectId userIdUnFollowed);
-    List<Post> getAllPostsForUser(UUID userId);
-
-    List<User> getFollowersFromUser(UUID userId);
+    public String getFollowersFromUser(ObjectId userId) throws UserNotFoundException;
 
     String findById(ObjectId userId) throws UserNotFoundException;
 
-    ResponseDTO saveUser(UUID userId);
-
-    ResponseDTO updateUser (UUID userId);
+    String updateUserName (UserDTO userId) throws UserNotFoundException;
 
     List<UserDTO> findAllUsers();
 

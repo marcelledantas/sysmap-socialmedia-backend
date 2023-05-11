@@ -65,15 +65,15 @@ public class UserService implements IUserService {
             User userFollower = optUserFollower.get();
             User userFollowed = optUserFollowed.get();
 
-            List<ObjectId> followerList = userFollower.getFollowing();
+            List<User> followerList = userFollower.getFollowing();
 
             if(followerList == null){
                 followerList = new ArrayList<>();
             }
             else{
                 //Check if userIdFollower already follows userIdFollowed
-                for(ObjectId id : followerList){
-                    if(id.equals(userIdFollowed)){
+                for(User user : followerList){
+                    if(user.getId().equals(userIdFollowed)){
                         responseMap.put("status", "falhou");
                         String msgResponse = String.format("%s já segue %s", userFollower.getFullName(), userFollowed.getFullName());
                         responseMap.put("mensagem", msgResponse);
@@ -82,16 +82,16 @@ public class UserService implements IUserService {
                 }
             }
 
-            followerList.add(userIdFollowed);
+            followerList.add(userFollowed);
             userFollower.setFollowing(followerList);
 
             this.userRepository.save(userFollower);
 
-            List<ObjectId> followingList = userFollowed.getFollowers();
+            List<User> followingList = userFollowed.getFollowers();
             if(followingList == null){
                 followingList = new ArrayList<>();
             }
-            followingList.add(userIdFollower);
+            followingList.add(userFollower);
             userFollowed.setFollowers(followingList);
 
             this.userRepository.save(userFollowed);
@@ -117,33 +117,34 @@ public class UserService implements IUserService {
             return responseMap.toString();
         }
 
-        User user = optUserFollower.get();
-        List<ObjectId> userFollowingList = user.getFollowing();
+        User userFollowed = optUserUnfollowed.get();
+        User userFollower = optUserFollower.get();
+        List<User> userFollowingList = userFollower.getFollowing();
         if(userFollowingList == null){
             userFollowingList = new ArrayList<>();
         }
 
         boolean isFollowed = false;
 
-        for(ObjectId id : userFollowingList){
-            if(id.equals(userIdUnfollowed)){
+        for(User u : userFollowingList){
+            if (u.getId().equals(userIdUnfollowed)) {
                 isFollowed = true;
+                break;
             }
         }
 
         if(isFollowed){
-            userFollowingList.remove(userIdUnfollowed);
-            user.setFollowing(userFollowingList);
-            this.userRepository.save(user);
+            userFollowingList.remove(userFollowed);
+            userFollower.setFollowing(userFollowingList);
+            this.userRepository.save(userFollower);
             responseMap.put("status", "sucesso");
-            responseMap.put("Usuário", user.getFullName());
-            responseMap.put("Lista de usuários que está seguindo", user.getFollowing().toString());
+            responseMap.put("Usuário", userFollower.getFullName());
+            responseMap.put("Lista de usuários que está seguindo", userFollower.getFollowing().toString());
 
             return responseMap.toString();
         }
         else{
-            User userFollowed = optUserUnfollowed.get();
-            responseMap.put("mensagem", String.format("Falha a dar unfollow, usuário %s não segue %s", user.getFullName(), userFollowed.getFullName()));
+            responseMap.put("mensagem", String.format("Falha a dar unfollow, usuário %s não segue %s", userFollowed.getFullName(), userFollowed.getFullName()));
             return responseMap.toString();
         }
 
@@ -165,17 +166,34 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<User> getFollowersFromUser(UUID userId) {
-        return null;
+    public String updateUserName(UserDTO userRequest) throws UserNotFoundException {
+        HashMap<String, UserDTO> responseMap = new HashMap<>();
+
+        User userFind = this.userRepository.findUserByEmail(userRequest.getEmail());
+        if(userFind == null) {
+            throw new UserNotFoundException("Usuário não encontrado");
+        }
+        else{
+            userFind.setFullName(userRequest.getFullName());
+            this.userRepository.save(userFind);
+            UserDTO userDTO = new UserDTO(userFind.getFullName(), userFind.getPhotoUrl(), userFind.getEmail());
+            responseMap.put("usuário", userDTO);
+            return responseMap.toString();
+        }
     }
 
     @Override
-    public ResponseDTO saveUser(UUID userId) {
-        return null;
-    }
+    public String getFollowersFromUser(ObjectId userId) throws UserNotFoundException {
 
-    @Override
-    public ResponseDTO updateUser(UUID userId) {
+        Optional<User> userFind = this.userRepository.findById(userId);
+        if(userFind.isEmpty()){
+            throw new UserNotFoundException("Usuário não encontrado");
+        }
+        else{
+            HashMap<String, String> responseMap = new HashMap<>();
+            User user = userFind.get();
+            List<User> userFollowers = user.getFollowers();
+        }
         return null;
     }
 
@@ -189,10 +207,10 @@ public class UserService implements IUserService {
         return null;
     }
 
-    @Override
-    public List<Post> getAllPostsForUser(UUID userId) {
-        return null;
-    }
+//    @Override
+//    public List<Post> getAllPostsForUser(UUID userId) {
+//        return null;
+//    }
 
     private User getUserFromDto(UserDTO userDTO, String password){
        return new User(userDTO.getFullName(), userDTO.getEmail(), password, userDTO.getPhotoUrl(), LocalDateTime.now());
