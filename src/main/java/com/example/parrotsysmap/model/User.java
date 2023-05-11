@@ -31,5 +31,13 @@ public class User {
         this.created = created;
     }
 
+    @Override
+    public String toString() {
+        return "Usuário{" +
+                "Nome='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", photo='" + photoUrl + '\'' +
+                '}';
+    }
 }
 
