@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +20,8 @@ public class User {
     private String photoUrl;
     private LocalDateTime created;
 
-    private List<ObjectId> followers = new java.util.ArrayList<>();
-    private List<ObjectId> following = new java.util.ArrayList<>();
+    private List<User> followers = new ArrayList<>();
+    private List<User> following = new ArrayList<>();
 
     public User(String fullName, String email, String password, String photoUrl, LocalDateTime created) {
         this.fullName = fullName;
