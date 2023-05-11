@@ -2,9 +2,7 @@ package com.example.parrotsysmap.service.user;
 
 import com.example.parrotsysmap.exception.EmailAlreadyExistsException;
 import com.example.parrotsysmap.exception.UserNotFoundException;
-import com.example.parrotsysmap.model.Post;
 import com.example.parrotsysmap.model.User;
-import com.example.parrotsysmap.dtos.ResponseDTO;
 import com.example.parrotsysmap.dtos.UserDTO;
 import com.example.parrotsysmap.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -193,13 +191,36 @@ public class UserService implements IUserService {
             HashMap<String, String> responseMap = new HashMap<>();
             User user = userFind.get();
             List<User> userFollowers = user.getFollowers();
+            responseMap.put("status", "sucesso");
+            responseMap.put("Seguindo", userFollowers.toString());
+            return responseMap.toString();
         }
-        return null;
     }
 
     @Override
-    public List<UserDTO> findAllUsers() {
-        return null;
+    public String getFollowingUsers(ObjectId userId) throws UserNotFoundException {
+        Optional<User> userFind = this.userRepository.findById(userId);
+        if(userFind.isEmpty()){
+            throw new UserNotFoundException("Usuário não encontrado");
+        }
+        else{
+            HashMap<String, String> responseMap = new HashMap<>();
+            User user = userFind.get();
+            List<User> userFollowing = user.getFollowing();
+            responseMap.put("status", "sucesso");
+            responseMap.put("Seguindo", userFollowing.toString());
+            return responseMap.toString();
+        }
+    }
+
+    @Override
+    public String findAllUsers() {
+        List<User> users = this.userRepository.findAll();
+        HashMap<String, String> responseMap = new HashMap<>();
+        if(users.isEmpty()){
+            return responseMap.put("mensagem", "Não há nenhum usuário ativo na rede Parrot").toString();
+        }
+        return responseMap.put("mensagem", users.toString());
     }
 
     @Override

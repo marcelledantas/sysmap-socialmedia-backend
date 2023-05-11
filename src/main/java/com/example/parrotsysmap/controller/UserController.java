@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/user")
@@ -66,16 +65,22 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-//    @GetMapping("/{userId}/posts")
-//    public ResponseEntity<List<Post>> getAllPostsFromUser(@PathVariable ObjectId userId) {
-//        List<Post> posts = userService.getAllPostsForUser(userId);
-//        return ResponseEntity.ok(posts);
-//    }
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<?> getFollowersFromUser(@PathVariable ObjectId userId) throws UserNotFoundException {
+        String result = userService.getFollowersFromUser(userId);
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/{userId}/posts")
+    public ResponseEntity<?> getFollowingUsers(@PathVariable ObjectId userId) throws UserNotFoundException {
+        String result = userService.getFollowingUsers(userId);
+        return ResponseEntity.ok(result);
+    }
 
     @GetMapping("/profile/all")
-    public ResponseEntity<List<UserDTO>> findAllUsers() {
-        List<UserDTO> user = this.userService.findAllUsers();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<?> findAllUsers() {
+        String result = this.userService.findAllUsers();
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/photo")
