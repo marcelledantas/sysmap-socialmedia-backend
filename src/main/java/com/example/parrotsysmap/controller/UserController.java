@@ -59,19 +59,19 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-     @PutMapping("/update")
+     @PutMapping("/update/name")
     public ResponseEntity<?> updateUserName(@RequestBody UserDTO userRequest) throws UserNotFoundException {
         String result = this.userService.updateUserName(userRequest);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{userId}/posts")
+    @GetMapping("/{userId}/followers")
     public ResponseEntity<?> getFollowersFromUser(@PathVariable ObjectId userId) throws UserNotFoundException {
         String result = userService.getFollowersFromUser(userId);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{userId}/posts")
+    @GetMapping("/{userId}/following")
     public ResponseEntity<?> getFollowingUsers(@PathVariable ObjectId userId) throws UserNotFoundException {
         String result = userService.getFollowingUsers(userId);
         return ResponseEntity.ok(result);
@@ -89,11 +89,11 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/{userId}/followers")
-    public ResponseEntity<?> getPostFromFollowers(@PathVariable ObjectId userId) throws UserNotFoundException {
-        String result  = this.userService.getFollowersFromUser(userId);
-        return ResponseEntity.ok(result);
-    }
+//    @GetMapping("/{userId}/followers")
+//    public ResponseEntity<?> getPostFromFollowers(@PathVariable ObjectId userId) throws UserNotFoundException {
+//        String result  = this.userService.getFollowersFromUser(userId);
+//        return ResponseEntity.ok(result);
+//    }
 
 //    @PostMapping("/delete/{postId}")
 //    public ResponseEntity deleteUser(@PathVariable Long postId) {

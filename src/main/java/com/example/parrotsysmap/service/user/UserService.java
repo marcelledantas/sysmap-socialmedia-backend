@@ -89,7 +89,11 @@ public class UserService implements IUserService {
             if(followingList == null){
                 followingList = new ArrayList<>();
             }
-            followingList.add(userFollower);
+
+
+            User newUserFollower = this.userRepository.findById(userIdFollower).get();
+
+            followingList.add(newUserFollower);
             userFollowed.setFollowers(followingList);
 
             this.userRepository.save(userFollowed);
