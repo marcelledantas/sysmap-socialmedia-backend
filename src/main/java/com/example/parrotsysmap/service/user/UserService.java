@@ -222,9 +222,12 @@ public class UserService implements IUserService {
         List<User> users = this.userRepository.findAll();
         HashMap<String, String> responseMap = new HashMap<>();
         if(users.isEmpty()){
-            return responseMap.put("mensagem", "Não há nenhum usuário ativo na rede Parrot").toString();
+            responseMap.put("mensagem", "Não há nenhum usuário ativo na rede Parrot");
         }
-        return responseMap.put("mensagem", users.toString());
+        else{
+            responseMap.put("mensagem", users.toString());
+        }
+        return responseMap.toString();
     }
 
     @Override
