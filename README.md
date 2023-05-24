@@ -1,4 +1,7 @@
-
+# TODO LIST
+- Mapear responses para um dto, se necessário ter Page<>
+- http status, response, consume json
+- 
 # Projeto Rede Social
 
 Projeto Backend realizado para o Bootcamp Fullstack da SysMap em 2023.

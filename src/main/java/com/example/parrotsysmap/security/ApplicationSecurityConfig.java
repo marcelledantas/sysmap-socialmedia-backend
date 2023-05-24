@@ -1,6 +1,5 @@
 package com.example.parrotsysmap.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -13,13 +12,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+import static com.example.parrotsysmap.security.ApplicationUserRole.*;
 
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig{
 
-    @Autowired
     private final PasswordEncoder passwordEncoder;
 
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
@@ -31,6 +29,7 @@ public class ApplicationSecurityConfig{
 
         http.authorizeHttpRequests().requestMatchers("/Admin/**").hasRole("ADMIN")
                 .requestMatchers("/", "index", "/css/*", "/js*").permitAll()
+                .requestMatchers("/api/user/**").hasRole(ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,10 +43,22 @@ public class ApplicationSecurityConfig{
         UserDetails userAnna = User.builder()
                 .username("Anna")
                 .password(passwordEncoder.encode("password"))
-                .roles("STUDENT")
+                .roles(STUDENT.name())
                 .build();
 
-        return new InMemoryUserDetailsManager(userAnna);
+        UserDetails userLinda = User.builder()
+                .username("Linda")
+                .password(passwordEncoder.encode("password123"))
+                .roles(ADMIN.name())
+                .build();
+
+        UserDetails userTom= User.builder()
+                .username("Tom")
+                .password(passwordEncoder.encode("password123"))
+                .roles(ADMINTRAINEE.name())
+                .build();
+
+        return new InMemoryUserDetailsManager(userAnna, userLinda, userTom);
     }
 
 }
